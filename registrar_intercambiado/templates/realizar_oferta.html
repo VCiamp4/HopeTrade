@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página Principal</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #61b0b2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar {
+        background-color: white;
+        color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 30px;
+    }
+    .navbar img {
+        width: auto;
+        height: 50px;
+        margin-right: 10px;
+        border-radius: 5px;
+    }
+    .nav-links {
+        display: flex;
+        align-items: stretch;
+    }
+    .nav-links button {
+        background-color: transparent;
+        color: black;
+        border: none;
+        cursor: pointer;
+        margin-right: 20px;
+        font-size: 16px;
+        height: 30px;
+    }
+    .nav-links button:hover {
+        background-color: #61b0b2;
+        color: white;
+        height:30px;
+    }
+    .main-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .category-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .category-button {
+        background-color: #abb444;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+    .category-button:hover {
+        background-color: #478f92;
+    }
+    .search-bar {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .search-input {
+        width: 80%;
+        max-width: 400px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .search-button {
+        background-color: #61b0b2;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        height: 30px;
+        line-height: 30px;
+    }
+    .search-button:hover {
+        background-color: #478f92;
+    }
+    .main-content {
+        flex: 1;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .main-content img {
+        max-width: 80%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+    .cats {
+        display: none;
+    }
+    input[type="checkbox"] {
+        width: 1em;
+        height: 1rem;
+        accent-color: green;
+
+    }
+    .publicacion {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+    }
+
+    .publicacion img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 8px;
+    }
+
+    .publicacion .details {
+            flex: 2;
+            margin-left: 20px;
+    }
+
+    .publi{
+        width: 300px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-right: 20px;
+        flex-shrink: 0;
+        text-align:left;
+    }
+
+    .foto-frame {
+        width: 105px; 
+        height: 155px; 
+        padding: 5px; 
+        border: 2px solid #cccccc;
+        border-radius: 10px; 
+        box-shadow: 0px 0px 5px rgba(0, 0, 0, 0.1); 
+        overflow: hidden; 
+        display: flex;
+        align-items: center; 
+        justify-content: center; 
+        margin: auto; 
+    }
+
+    .foto {
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+</style>
+
+</head>
+<body>
+
+    {% if messages %}
+    <div class="alert alert-danger" role="alert">
+        <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+     {% endif %}
+    <div class="navbar">
+
+        <div>
+            <img src="../static/logo.png" alt="foto_principal">
+        </div>
+        <div class="nav-links">
+            <form action="/mi_perfil/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Mi Perfil</button>
+            </form>
+            <form action="/cerrar_sesion/" method="POST">
+                {% csrf_token %}
+                <button type="submit">Cerrar sesión</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="main-container">
+        <div class="publi">
+            <div class="foto-frame">
+                <img src="../media/{{ publicacion_elegida.imagen_publicacion }}" alt="Foto" class="foto">
+            </div>
+            <h4>{{ publicacion_elegida.titulo_publicacion }}<h4>
+            <form id="main-form">
+                {% csrf_token %}
+                <label for="fecha">Seleccione una fecha: </label>
+                <input type="date" id="fecha" required>
+
+                <label for="hora"> Seleccione una hora:</label>
+                <input type="time" id="hora" required>
+            </form>
+        </div>
+        
+
+        <div class="main-content">
+
+<section id="listado_de_publicaciones">
+                {% if publicaciones %}
+                    <ul style="list-style-type: none; padding: 0;">
+                        {% for publicacion in publicaciones %}
+                            <li class="publicacion" style="display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+                                <div style="flex: 1;">
+                                    <!-- Contenido de la sección izquierda -->
+                                    <img src="../media/{{ publicacion.imagen_publicacion }}" alt="Imagen de la publicación" style="max-width: 150px; max-height: 150px; border-radius: 8px;">
+                                </div>
+                                <div style="flex: 2; margin-left: 20px;">
+                                    <!-- Contenido de la sección media -->
+                                    <h1 style="font-size: 1.7rem; margin-bottom: 10px;">{{ publicacion.titulo_publicacion }}</h1>
+                                    <div style="display: flex; align-items: center; margin-top: 10px;">
+                                        <div style="flex: 1;">
+                                            <!-- Contenido de la sección derecha -->
+                                            <p style="font-size: 1rem; color: #666; margin-bottom: 5px;">Categoría: {{ publicacion.categoria_publicacion }}</p>
+                                            <p style="font-size: 1rem; color: #666; margin-bottom: 5px;">{{ publicacion.filial_publicacion }}</p>
+                                        </div>
+                                        <div>
+                                            <form action="/realizar_oferta/" method="POST" class="form-transfer">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="fecha" id="fecha-hidden" value="">
+                                                <input type="hidden" name="hora" id="hora-hidden" value="">
+                                                <input type="hidden" name="id_publicacion" value="{{ publicacion.id_publicacion }}">
+                                                <input type="hidden" name="id_publicacion_elegida" value="{{ publicacion_elegida.id_publicacion }}">
+                                                <button  onclick="transferData(event)" type="submit" id="enviar-oferta-button" class="button">Enviar oferta</button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <h2>No hay publicaciones</h2>
+                {% endif %}
+            </section>
+            <h2 id="no-publicaciones" class="no-publicaciones" style="display: none;">No hay publicaciones</h2>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+    function transferData(event) {
+    // Obtener el formulario actual
+    var form = event.target.closest('form');
+
+    // Obtener valores del formulario actual
+    var email = document.getElementById('hora').value; 
+    var name = document.getElementById('fecha').value; 
+
+    if (name.trim() === '' || email.trim() === '') {
+        alert('Por favor, completa los campos de fecha y hora.');
+        event.preventDefault(); // Prevenir la presentación del formulario
+    } else {
+        // Establecer valores en el formulario actual
+        form.querySelector('#fecha-hidden').value = name;
+        form.querySelector('#hora-hidden').value = email;
+    }
+}
+
+    </script>
+    
+</body>
+</html>

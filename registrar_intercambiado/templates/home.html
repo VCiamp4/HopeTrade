@@ -1,0 +1,189 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Página Principal</title>
+  <link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+  <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+  <style>
+    body {
+      background-image: url('{% static "fondoHome.jpg" %}');
+      background-size: cover;
+      background-repeat: no-repeat;
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+    }
+
+    .navbar {
+      background-color: white;
+      color: black;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding: 10px 30px;
+    }
+
+    .navbar img {
+      width: auto;
+      height: 50px;
+      margin-right: 10px;
+      border-radius: 5px;
+    }
+
+    .navbar form {
+      display: flex;
+      align-items: center;
+    }
+
+    .navbar input {
+      margin-right: 10px;
+      padding: 5px;
+    }
+
+    .navbar button {
+      padding: 10px 10px;
+      background-color: #61b0b2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .assistant-link {
+      margin-right: 10px;
+      color: #007bff;
+      text-decoration: none;
+    }
+
+  
+    
+    .registration-container {
+        
+        max-width: 500px;
+        width: 100%;
+        padding: 5px;
+        right: 0px;
+        background-color: rgba(255, 255, 255, 0.9);
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        text-align: center;
+        box-sizing: border-box;
+        
+        margin: 20px 20px 20px auto; /* 20px de margen en la parte superior, derecha e inferior, y auto en la izquierda */
+    }
+
+    .registration-container h2 {
+      margin-bottom: 20px;
+    }
+
+    .registration-container input {
+      width: 100%;
+      margin-bottom: 10px;
+      padding: 8px;
+    }
+
+    .registration-container button {
+      width: 100%;
+      padding: 10px;
+      background-color: #61b0b2;
+      color: white;
+      border: none;
+      border-radius: 5px;
+    }
+
+    .registration-container a {
+      display: inline-block;
+      margin-top: 10px;
+      text-decoration: none;
+      color: #007bff;
+    }
+
+    .registration-container a:nth-child(2) {
+      margin-top: 10px;
+      /* Ajusta el valor según sea necesario */
+    }
+   
+  </style>
+</head>
+
+<body>
+  {% if messages %}
+    <div id="alerta" class="alert alert-danger" role="alert">
+        <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+     {% endif %}
+  
+  <div class="navbar">
+
+    <div class="logo">
+      <img src="{% static 'logo.png' %}" alt="foto_principal" style="height:45px; width:210px">
+    </div>
+  
+    
+  
+    <form action="/signin_inter/" method="POST">
+      
+      {% csrf_token %}
+      <a href="/signin_ayu/" class="assistant-link">¿Sos parte de la organizacion? Clickea aca!</a>  
+      <div class="form-group">
+        {{ form_inicio_sesion.dni }}
+      </div>
+      
+      <div class="form-group">
+        {{ form_inicio_sesion.contrasenia }}
+      </div>
+      <button  type="submit">Iniciar sesión</button>
+    </form>
+  </div>
+
+  <div class="registration-container">
+    <h4>¿No tenes cuenta? ¡Registrate!</h4>
+    <form method="POST" action="/signup_inter/">
+        {% csrf_token %}
+        <div class="form-group">
+            {{ form_registro.dni.label_tag }}
+            {{ form_registro.dni }}
+        </div>
+        <div class="form-group">
+            {{ form_registro.nombre.label_tag }}
+            {{ form_registro.nombre }}
+        </div>
+        <div class="form-group">
+            {{ form_registro.apellido.label_tag }}
+            {{ form_registro.apellido }}
+        </div>
+        <div class="form-group">
+            {{ form_registro.correo.label_tag }}
+            {{ form_registro.correo }}
+        </div>
+        <div class="form-group">
+            {{ form_registro.fecha_nacimiento.label_tag }}
+            {{ form_registro.fecha_nacimiento }}
+        </div>
+        <div class="form-group">
+            {{ form_registro.contrasenia.label_tag }}
+            {{ form_registro.contrasenia }}
+        </div>
+        <button type="submit">Registrarse</button>
+    </form>
+</div>
+</body>
+<script>
+    $(document).ready(function(){
+        // Mostrar la alerta por encima de los demás elementos
+        $("#alerta").css("z-index", "9999").fadeIn();
+
+        // Desaparecer la alerta deslizándose después de 3 segundos
+        setTimeout(function(){
+            $("#alerta").slideUp();
+        }, 2000);
+    });
+</script>
+</html>

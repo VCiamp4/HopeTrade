@@ -1,0 +1,329 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página Principal</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #61b0b2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar {
+        background-color: white;
+        color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 30px;
+    }
+    .navbar img {
+        width: auto;
+        height: 50px;
+        margin-right: 10px;
+        border-radius: 5px;
+    }
+    .nav-links {
+        display: flex;
+        align-items: stretch;
+    }
+    .nav-links button {
+        background-color: transparent;
+        color: black;
+        border: none;
+        cursor: pointer;
+        margin-right: 20px;
+        font-size: 16px;
+        height: 30px;
+    }
+    .nav-links button:hover {
+        background-color: #61b0b2;
+        color: white;
+        height:30px;
+    }
+    .main-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        display: flex;
+        align-items: flex-start;
+    }
+    .filtros-container {
+        width: 300px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-right: 20px;
+        flex-shrink: 0;
+        text-align:left;
+    }
+
+    .category-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .category-button {
+        background-color: #abb444;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+    .category-button:hover {
+        background-color: #478f92;
+    }
+    .search-bar {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .search-input {
+        width: 80%;
+        max-width: 400px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .search-button {
+        background-color: #61b0b2;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        height: 30px;
+        line-height: 30px;
+    }
+    .search-button:hover {
+        background-color: #478f92;
+    }
+    .main-content {
+        flex: 1;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .main-content img {
+        max-width: 80%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+    .cats {
+        display: none;
+    }
+    input[type="checkbox"] {
+        width: 1em;
+        height: 1rem;
+        accent-color: green;
+
+    }
+    .publicacion {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+    }
+
+    .publicacion img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 8px;
+    }
+
+    .publicacion .details {
+            flex: 2;
+            margin-left: 20px;
+    }
+            .filtros-container {
+            position: relative;
+            width: 350px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-right: 20px;
+            text-align: left;
+        }
+
+        .filtros-container .filter-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .filtros-container .filter-button:hover {
+            background-color: #0056b3;
+        }
+
+        .filtros-container .filters {
+            display: none;
+            padding: 10px 0;
+        }
+
+        .filtros-container .filters input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .filtros-container .filters label {
+            margin-right: 20px;
+        }
+
+        .filtros-container .filters.visible {
+            display: block;
+        }
+        .seleccion-filtro {
+            display: inline-block;
+            width: 200px;
+            height: 100px;
+            margin: 1em;
+        }
+        
+    /* Estilos para los botones */
+    .button {
+        background-color: #79b18d;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+        text-decoration: none; /* Para el enlace */
+        display: inline-block; /* Para el botón */
+    }
+
+    .button:hover {
+        background-color: #608e75;
+    }
+
+    /* Estilos específicos para el botón Restablecer */
+    .reset-button {
+        background-color: #79b18d;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+        text-decoration: none; /* Para el enlace */
+        display: inline-block; /* Para el botón */
+    }
+
+    .reset-button:hover {
+        background-color: #608e75;
+    }
+    .sidebar-container {
+    }
+</style>
+
+</head>
+<body>
+    {% if messages %}
+    <div id="alerta" class="alert alert-danger" role="alert">
+        <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+     {% endif %}
+     
+    <div class="navbar">
+
+        <div>
+            <img src="../static/logo.png" alt="foto_principal">
+        </div>
+        <div class="nav-links">
+            <form action="/mi_perfil/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Mi Perfil</button>
+            </form>
+            <form action="/suspender_cuenta/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Suspender una cuenta</button>
+            </form>
+            <form action="/eliminarCuentaDesdeAyu/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Eliminar una cuenta</button>
+            </form>
+            <form action="/cerrar_sesion/" method="POST">
+                {% csrf_token %}
+                <button type="submit">Cerrar sesión</button>
+            </form>
+            <form action="/inicio/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Inicio</button>
+            </form>
+        </div>
+    </div>
+        <div class="main-content">
+
+            <section id="listado_de_intercambios">
+                {% if intercambios %}
+                    <ul style="list-style-type: none; padding: 0;">
+                        {% for intercambio in intercambios %}
+                            <li class="publicacion" style="display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+                                <div style="flex: 2; margin-left: 20px;">
+                                    <!-- Contenido de la sección media -->
+                                    <h1 style="font-size: 1.7rem; margin-bottom: 10px;">{{ intercambio.publi_recibida.titulo_publicacion }}</h1>
+                                    <h1 style="font-size: 1.7rem; margin-bottom: 10px;"> {{ intercambio.publi_ofertada.titulo_publicacion }}</h1>
+                                    <div style="display: flex; align-items: center; margin-top: 10px;">
+                                            <div class="product-image-container">
+                                                <img src="{{ intercambio.publi_recibida.imagen_publicacion.url }}" style="max-width: 150px; max-height: 150px;" alt="Foto del producto">
+                                                <img src="{{ intercambio.publi_ofertada.imagen_publicacion.url }}" style="max-width: 150px; max-height: 150px;" alt="Foto del producto">
+                                            </div>
+                                        <div style="flex: 1;">
+                                            <!-- Contenido de la sección derecha -->
+                                            <p style="font-size: 1rem; color: #666; margin-bottom: 5px;">Fecha: {{ intercambio.fecha_concretada }}</p>
+                                            <p style="font-size: 1rem; color: #666; margin-bottom: 5px;">{{ intercambio.filial }}</p>
+                                        </div>
+                                        <div>
+                                            <form action="/listar_intercambios_dia/" method="POST">
+                                                {% csrf_token %}
+                                                <input type="hidden" name="id_intercambio" value="{{ intercambio.id_intercambio }}">
+                                                <button type="submit" name="action" value="confirmar">Confirmar intercambio</button>
+                                                <button type="submit" id="cancelarBtn" name="action" value="cancelar">Cancelar intercambio</button>
+                                                <input type="text" id="motivo_cancelacion" name="motivo_cancelacion" placeholder="Escriba aqui el motivo">
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <h2>No hay intercambios pendientes para el día de hoy</h2>
+                {% endif %}
+            </section>
+            <h2 id="no-publicaciones" class="no-publicaciones" style="display: none;">No hay intercambios pendientes para el día de hoy</h2>
+        </div>
+    </div>
+
+    <script>
+        document.getElementById('cancelarBtn').addEventListener('click', function(event) {
+            var motivo = document.getElementById('motivoCancelacion').value;
+            if (motivo.trim() === "") {
+                event.preventDefault();
+                alert('Por favor, escriba el motivo de la cancelación.');
+            }
+        });
+        </script>
+
+</body>
+</html>
