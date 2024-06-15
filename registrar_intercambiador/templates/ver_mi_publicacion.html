@@ -1,0 +1,203 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Detalle del Producto</title>
+<style>
+    body {
+        background-color: #61b0b2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar {
+        background-color: white;
+        color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 30px;
+    }
+    .navbar img {
+        width: auto;
+        height: 50px;
+        margin-right: 10px;
+        border-radius: 5px;
+    }
+    .nav-links {
+        display: flex;
+        align-items: center;
+    }
+    .nav-links button {
+        background-color: transparent;
+        color: black;
+        border: none;
+        cursor: pointer;
+        margin-right: 20px;
+        font-size: 16px;
+    }
+    .main-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        display: flex;
+    }
+    .product-container {
+        max-width: 800px;
+        margin: 30px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .product-image-container {
+        display: flex;
+        flex:1;
+        align-items: center; /* Centra verticalmente la imagen y el texto */
+        margin-bottom: 20px;
+    }
+    .product-image img {
+        width: 150px; /* Ancho de la imagen cuadrada */
+        height: 150px; /* Altura de la imagen cuadrada */
+        border-radius: 5px;
+    }
+    .product-details {
+    flex: 2;
+    padding-left: 20px; /* Espacio entre la imagen y los detalles */
+}
+
+.product-details h2 {
+    margin-top: 0; /* Eliminar el margen superior del título */
+}
+
+.product-details p {
+    margin-bottom: 10px; /* Espacio entre los párrafos */
+}
+
+.offer-button {
+    background-color: #79b18d;
+    color: white;
+    padding: 10px 20px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-right: 10px;
+}
+
+.offer-button:hover {
+    background-color: #608e75;
+}
+    textarea {
+        width: 100%;
+        max-width: 600px;
+        height: 60px; /* Altura reducida del área de texto */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        resize: vertical;
+        margin-bottom: 20px; /* Espacio entre el botón y el área de comentario */
+    }
+    .comment-button {
+        background-color: #61b0b2;
+        color: #fff;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .comment-button:hover {
+        background-color: #fff;
+        color: #61b0b2;
+    }
+    .categories-container {
+        width: 200px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-right: 20px;
+    }
+    .category-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .category-button {
+        background-color: #61b0b2;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+    .category-button:hover {
+        background-color: #478f92;
+    }
+    textarea {
+        width: calc(100% - 22px); /* Ajusta el ancho según sea necesario */
+        padding: 10px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px; /* Tamaño de fuente predeterminado */
+        min-height: 16px; /* Altura mínima del textarea */
+        resize: none; /* Evita que el usuario cambie el tamaño del textarea */
+    }
+</style>
+</head>
+<body>
+    <div class="navbar">
+        <div>
+            <img src="../static/logo.png" alt="Logo de HopeTrade">
+        </div>
+        <div class="nav-links">
+            <form action="/menu_principal/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Inicio</button>
+            </form>
+            <form action="/mi_perfil/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Mi perfil</button>
+            </form>
+            <form action="/cerrar_sesion/" method="POST">
+                {% csrf_token %}
+                <button type="submit">Cerrar sesión</button>
+            </form>
+        </div>
+    </div>
+    <div class="main">
+    <div class="product-container">
+        <div class="product-image-container">
+            <img src="{{ publicacion.imagen_publicacion.url }}" style="max-width: 300px; max-height: 300px;" alt="Foto del producto">
+        </div>
+        <div class="product-details">
+            <h2>Título: {{ publicacion.titulo_publicacion }}</h2>
+            <p>Descripción del producto:</p>
+            <textarea readonly>{{ publicacion.descripcion_publicacion }}</textarea>
+            <form action="/modificar_publicacion/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="{{ publicacion.id_publicacion }}" name="id_publicacion" value="{{ publicacion.id_publicacion }}">
+                <button type='submit'>Modificar publicacion </button>
+            </form>
+            <form action="/eliminar_publicacion/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="{{ publicacion.id_publicacion }}" name="id_publicacion" value="{{ publicacion.id_publicacion }}">
+                <button type='submit'>Eliminar publicacion </button>
+            </form>
+            <form action="/listar_comentarios/" method="POST">
+                {% csrf_token %}
+                <input type="hidden" id="{{ publicacion.id_publicacion }}" name="id_publicacion" value="{{ publicacion.id_publicacion }}">
+                <button type='submit'>Listar comentarios de la publicación</button>
+
+            </form>
+        </div>
+        </div> 
+    </div>
+</div>
+</body>
+</html>

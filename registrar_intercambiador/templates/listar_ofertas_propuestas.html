@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página Principal</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #61b0b2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar {
+        background-color: white;
+        color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 30px;
+    }
+    .navbar img {
+        width: auto;
+        height: 50px;
+        margin-right: 10px;
+        border-radius: 5px;
+    }
+    .nav-links {
+        display: flex;
+        align-items: stretch;
+    }
+    .nav-links button {
+        background-color: transparent;
+        color: black;
+        border: none;
+        cursor: pointer;
+        margin-right: 20px;
+        font-size: 16px;
+        height: 30px;
+    }
+    .nav-links button:hover {
+        background-color: #61b0b2;
+        color: white;
+        height:30px;
+    }
+
+    .main_container{
+        max-width: 1200px;
+        margin: 30px auto;
+        display: flex;
+        align-items: flex-start;
+        background-color: white;
+        border-radius: 5px;
+    }
+</style>
+</head>
+<body>
+
+    {% if messages %}
+    <div class="alert alert-danger" role="alert">
+        <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="navbar">
+        <div>
+            <img src="../static/logo.png" alt="foto_principal">
+        </div>
+        <div class="nav-links">
+            <form action="/mi_perfil/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Mi Perfil</button>
+            </form>
+            <form action="/cerrar_sesion/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Cerrar sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="main_container">
+        <h3> Mis ofertas pendientes </h3>
+        <section id="listado_de_publicaciones">
+            {% if publicaciones %}
+                <ul style="list-style-type: none; padding: 0;">
+                    {% for publicacion in publicaciones %}
+                        <li class="publicacion" style="display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+                            <div style="flex: 1;">
+                                <!-- Contenido de la sección izquierda -->
+                                <img src="../media/{{ publicacion.imagen_publicacion }}" alt="Imagen de la publicación" style="max-width: 150px; max-height: 150px; border-radius: 8px;">
+                            </div>
+                            <div style="flex: 2; margin-left: 20px;">
+                                <!-- Contenido de la sección media -->
+                                <h1 style="font-size: 1.7rem; margin-bottom: 10px;">{{ publicacion.titulo_publicacion }}</h1>
+                                <div style="display: flex; align-items: center; margin-top: 10px;">
+                                    <div style="flex: 1;">
+                                        <!-- Contenido de la sección derecha -->
+                                        <p style="font-size: 1rem; color: #666; margin-bottom: 5px;">Categoría: {{ publicacion.categoria_publicacion }}</p>
+                                        <p style="font-size: 1rem; color: #666; margin-bottom: 5px;">{{ publicacion.filial_publicacion }}</p>
+                                    </div>
+                                    <div>
+                                        <form action="/listar_ofertas_propuestas/" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id_publicacion_recibida" value="{{ publi_recibe.id_publicacion }}">
+                                            <input type="hidden" name="id_publicacion_ofertada" value="{{ publicacion.id_publicacion }}">
+                                            <button type="submit" name="action" value="aceptar" class="button">Aceptar oferta</button>
+                                            <button type="submit" name="action" value="rechazar" class="button">Rechazar oferta</button>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </li>
+                    {% endfor %}
+                </ul>
+            {% else %}
+                <h2>No hay publicaciones</h2>
+            {% endif %}
+        </section>
+        <h2 id="no-publicaciones" class="no-publicaciones" style="display: none;">No hay publicaciones</h2>
+    </div>
+</div>
+    </div>
+</body>
+</html>

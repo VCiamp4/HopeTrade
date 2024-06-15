@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página de Suspensión</title>
+<style>
+    body {
+        background-color: #61b0b2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar {
+        background-color: white; /* Cambio de color de la barra */
+        color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 30px; /* Aumento del padding */
+    }
+    .navbar img {
+        width: auto;
+        height: 50px;
+        margin-right: 10px;
+    }
+    .nav-links {
+        display: flex;
+        align-items: center;
+    }
+    .nav-links button {
+        background-color: transparent;
+        color: black;
+        border: none;
+        cursor: pointer;
+        margin-right: 20px;
+        font-size: 16px;
+    }
+    .container {
+        max-width: 800px;
+        margin: 50px auto;
+        padding: 20px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .dates-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .dates {
+        text-align: center;
+        margin-bottom: 20px;
+    }
+    .button-container {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-end;
+    }
+    .button {
+        background-color: white;
+        color: black;
+        border: 2px solid black;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 20px;
+    }
+    .red-button {
+        background-color: #3399FF;
+        border-color: #3399FF;
+        color: white;
+    }
+</style>
+</head>
+<body>
+    <div class="navbar">
+        
+    </div>
+
+    <div class="container">
+        <div class="dates-container">
+            <div class="dates">
+                <h4>Hola, {{ nombre_usuario }}!</h4>
+                <p>Lamentamos informarte que estás suspendido hasta:</p>
+                {{ fecha }}
+            </div>
+        </div>
+        <div class="button-container">
+            <form action="/home/" method="GET">
+                <button type="submit">Volver</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+     
+        const botonVolver = document.getElementById('volver');
+
+        botonVolver.addEventListener('mouseover', function() {
+            this.style.backgroundColor = '#9FF781';
+        });
+
+        botonVolver.addEventListener('mouseout', function() {
+            this.style.backgroundColor = 'white'; 
+        });
+
+        botonVolver.addEventListener('click', function() {
+            location.href = 'home.html'; // Redirecciona a home.html al hacer clic en "Volver"
+        });
+    </script>
+</body>
+</html>

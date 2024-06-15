@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Página Principal</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #61b0b2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar {
+        background-color: white;
+        color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 30px;
+    }
+    .navbar img {
+        width: auto;
+        height: 50px;
+        margin-right: 10px;
+        border-radius: 5px;
+    }
+    .nav-links {
+        display: flex;
+        align-items: stretch;
+    }
+    .nav-links button {
+        background-color: transparent;
+        color: black;
+        border: none;
+        cursor: pointer;
+        margin-right: 20px;
+        font-size: 16px;
+        height: 30px;
+    }
+    .nav-links button:hover {
+        background-color: #61b0b2;
+        color: white;
+        height:30px;
+    }
+    .main-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        display: flex;
+        align-items: flex-start;
+    }
+    .filtros-container {
+        width: 300px;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        margin-right: 20px;
+        flex-shrink: 0;
+        text-align:left;
+    }
+
+    .category-title {
+        font-weight: bold;
+        margin-bottom: 10px;
+    }
+    .category-button {
+        background-color: #abb444;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-bottom: 10px;
+        display: block;
+        width: 100%;
+        text-align: left;
+    }
+    .category-button:hover {
+        background-color: #478f92;
+    }
+    .search-bar {
+        margin-top: 20px;
+        text-align: center;
+    }
+    .search-input {
+        width: 80%;
+        max-width: 400px;
+        padding: 15px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+    }
+    .search-button {
+        background-color: #61b0b2;
+        color: white;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-top: 10px;
+        height: 30px;
+        line-height: 30px;
+    }
+    .search-button:hover {
+        background-color: #478f92;
+    }
+    .main-content {
+        flex: 1;
+        background-color: #ffffff;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    .main-content img {
+        max-width: 80%;
+        height: auto;
+        margin-bottom: 20px;
+    }
+    .cats {
+        display: none;
+    }
+    input[type="checkbox"] {
+        width: 1em;
+        height: 1rem;
+        accent-color: green;
+
+    }
+    .publicacion {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #ccc;
+            padding-bottom: 20px;
+    }
+
+    .publicacion img {
+            max-width: 150px;
+            max-height: 150px;
+            border-radius: 8px;
+    }
+
+    .publicacion .details {
+            flex: 2;
+            margin-left: 20px;
+    }
+            .filtros-container {
+            position: relative;
+            width: 350px;
+            background-color: #ffffff;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            margin-right: 20px;
+            text-align: left;
+        }
+
+        .filtros-container .filter-button {
+            display: inline-block;
+            background-color: #007bff;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            cursor: pointer;
+            border-radius: 5px;
+            margin-bottom: 10px;
+        }
+
+        .filtros-container .filter-button:hover {
+            background-color: #0056b3;
+        }
+
+        .filtros-container .filters {
+            display: none;
+            padding: 10px 0;
+        }
+
+        .filtros-container .filters input[type="checkbox"] {
+            margin-right: 5px;
+        }
+
+        .filtros-container .filters label {
+            margin-right: 20px;
+        }
+
+        .filtros-container .filters.visible {
+            display: block;
+        }
+        .seleccion-filtro {
+            display: inline-block;
+            width: 200px;
+            height: 100px;
+            margin: 1em;
+        }
+        
+    /* Estilos para los botones */
+    .button {
+        background-color: #79b18d;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+        text-decoration: none; /* Para el enlace */
+        display: inline-block; /* Para el botón */
+    }
+
+    .button:hover {
+        background-color: #608e75;
+    }
+
+    /* Estilos específicos para el botón Restablecer */
+    .reset-button {
+        background-color: #79b18d;
+        color: white;
+        padding: 10px 20px;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+        margin-right: 10px;
+        text-decoration: none; /* Para el enlace */
+        display: inline-block; /* Para el botón */
+    }
+
+    .reset-button:hover {
+        background-color: #608e75;
+    }
+    .sidebar-container {
+    }
+</style>
+
+</head>
+<body>
+    {% if messages %}
+    <div id="alerta" class="alert alert-danger" role="alert">
+        <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+     {% endif %}
+
+    <div class="navbar">
+
+        <div>
+            <img src="../static/logo.png" alt="foto_principal">
+        </div>
+        <div class="nav-links">
+            <form action="/mi_perfil/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Mi Perfil</button>
+            </form>
+            <form action="/cerrar_sesion/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Cerrar sesión</button>
+            </form>
+            <form action="/suspender_cuenta/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Suspender una cuenta</button>
+            </form>
+            <form action="/eliminarCuentaDesdeAyu/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Eliminar una cuenta</button>
+            </form>
+        </div>
+    </div>
+
+
+    <div class="main-container">
+        <div class="sidebar-container">
+            
+            {% csrf_token %}
+            <div class="filtros-container">
+                <button style="category-button" class="filter-button" onclick="toggleFilters()">Mostrar Filtros</button>
+                <div>
+                    <form action="/menu_principal/" method="POST">
+                        {% csrf_token %}
+                            <div class="filters" id="filters">
+                                <h3> Por categoría </h3>
+                                <div class="seleccion-filtro">
+                                    
+                                        {% for categoria in categorias %}
+                                            <input type="checkbox" id="cat-{{ categoria.id_categoria }}" name="categorias" value="{{ categoria.id_categoria }}" class="filter-checkbox">
+                                            <label class="category-title" for="cat-{{ categoria.id_categoria }}">{{ categoria.nombre_categoria }}</label><br>
+                                        {% endfor %}
+                                    
+                                </div>
+                                <h3> Por filial </h3>
+                                <div class="seleccion-filtro">
+                                    
+                                        {% for filial in filiales %}
+                                            <input type="checkbox" id="fil-{{ filiales.id_filiales }}" name="filiales" value="{{ filial.id_filial }}" class="filter-checkbox">
+                                            <label class="category-title" for="fil-{{ filial.id_filial }}">{{ filial.nombre_filial }}</label><br>
+                                        {% endfor %}
+                                    
+                                </div>
+
+                                
+                            </div>
+                        
+                            <button href="?categoria=" class="button reset-button">Restablecer</button>
+
+                            
+                            <button type="submit" class="button">Aplicar Filtro</button>
+                    </form>
+                </div>
+            </div>
+            <br>
+            <br>
+            <form action="/listar_intercambios_di/" method="GET">
+                {% csrf_token %}
+                <div class="filtros-container">
+                    <!--<button class="category-button">DONAR</button> -->
+                    <button class="category-button">Listar intercambios del dia</button>
+                </div>
+            </form>
+        </div>
+        
+
+        <div class="main-content">
+
+            <section id="listado_de_publicaciones">
+                {% if publicaciones %}
+                    <ul style="list-style-type: none; padding: 0px;">
+                        {% for publicacion in publicaciones %}
+                            <li class="publicacion" style="display: flex; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #ccc; padding-bottom: 20px;">
+                                <div style="flex: 1;">
+                                    <!-- Contenido de la sección izquierda -->
+                                    <img src="../media/{{ publicacion.imagen_publicacion }}" alt="Imagen de la publicación" style="max-width: 150px; max-height: 150px; border-radius: 8px;">
+                                </div>
+                                <div style="flex: 2; margin-left: 20px;">
+                                    <!-- Contenido de la sección media -->
+                                    <h1 style="font-size: 1.7rem; margin-bottom: 10px;">{{ publicacion.titulo_publicacion }}</h1>
+                                    <div style="display: flex; align-items: center; margin-top: 10px;">
+                                        <div style="flex: 1;">
+                                            <!-- Contenido de la sección derecha -->
+                                            <p style="font-size: 1rem; color: #666; margin-bottom: 5px;">Categoría: {{ publicacion.categoria_publicacion }}</p>
+                                            <p style="font-size: 1rem; color: #666; margin-bottom: 5px;">{{ publicacion.filial_publicacion }}</p>
+                                        </div>
+                                        <div>
+                                        <form action="/ver_publicacion/" method="POST">
+                                            {% csrf_token %}
+                                            <input type="hidden" name="id_publicacion" value="{{ publicacion.id_publicacion }}">
+                                            <button type="submit" class="button" >Ver detalle</button>
+                                        </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                {% else %}
+                    <h2>No hay publicaciones</h2>
+                {% endif %}
+            </section>
+            <h2 id="no-publicaciones" class="no-publicaciones" style="display: none;">No hay publicaciones</h2>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.10.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        function toggleFilters() {
+            var filters = document.getElementById('filters');
+            ;
+            if (filters.classList.contains('visible')) {
+                filters.classList.remove('visible');
+            } else {
+                filters.classList.add('visible');
+            }
+        }
+
+        
+        setTimeout(function() {
+            $('.alert').alert('close');
+        }, 2000);
+
+    </script>
+    
+</body>
+</html>
