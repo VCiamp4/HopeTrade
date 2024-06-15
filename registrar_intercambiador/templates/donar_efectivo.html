@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Donar</title>
+<link href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+<style>
+    body {
+        background-color: #61b0b2;
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+    }
+    .navbar {
+        background-color: white;
+        color: black;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 30px;
+    }
+    .navbar img {
+        width: auto;
+        height: 50px;
+        margin-right: 10px;
+        border-radius: 5px;
+    }
+    .nav-links {
+        display: flex;
+        align-items: center;
+    }
+    .nav-links button {
+        background-color: transparent;
+        color: black;
+        border: none;
+        cursor: pointer;
+        margin-right: 20px;
+        font-size: 16px;
+    }
+    .nav-links button:hover {
+        background-color: #61b0b2;
+        color: white;
+    }
+    .main-container {
+        max-width: 1200px;
+        margin: 30px auto;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    form {
+        width: 100%;
+        max-width: 600px;
+        display: flex;
+        flex-direction: column;
+    }
+    label {
+        margin: 10px 0 5px;
+    }
+    input {
+        padding: 10px;
+        margin-bottom: 20px;
+        border: 1px solid #ccc;
+        border-radius: 5px;
+        font-size: 16px;
+    }
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+    input::-webkit-outer-spin-button,
+    input::-webkit-inner-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+    .donar-button {
+        background-color: #61b0b2;
+        color: white;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        transition: transform 0.3s, background-color 0.3s, color 0.3s;
+        font-size: 16px;
+    }
+    .donar-button:hover {
+        transform: scale(1.1);
+        background-color: white;
+        color: #61b0b2;
+    }
+</style>
+</head>
+<body>
+    {% if messages %}
+    <div id="alerta" class="alert alert-danger" role="alert">
+        <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+    <div class="navbar">
+        <div>
+            <img src="../static/logo.png" alt="LOGO">
+        </div>
+        <div class="nav-links">
+            <form action="/menu_principal/" method="GET">
+                {% csrf_token %}
+                <button type="submit">INICIO</button>
+            </form>
+            <form action="/mi_perfil/" method="GET">
+                {% csrf_token %}
+                <button type="submit">MI PERFIL</button>
+            </form>
+            <form action="/cerrar_sesion/" method="POST">
+                {% csrf_token %}
+                <button type="submit">Cerrar sesión</button>
+            </form>
+        </div>
+    </div>
+
+    <div class="main-container">
+        <form action="/donar/" method="POST">
+            {% csrf_token %}
+            <label for="fecha">Seleccione una fecha:</label>
+            <input type="date" id="fecha" name="fecha" required>
+            <label for="hora">Seleccione una hora:</label>
+            <input type="time" id="hora" name="hora" required>
+            <label for="monto">Monto a donar:</label>
+            <input type="number" id="monto" name="monto" min="1" required>
+            <button type="submit" class="donar-button">Donar</button>
+        </form>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.bundle.min.js"></script>
+    <script>
+        $(document).ready(function(){
+            if ($("#alerta").length) {
+                $("#alerta").css("z-index", "9999").fadeIn();
+                setTimeout(function(){
+                    $("#alerta").slideUp();
+                }, 2500);
+            }
+        });
+    </script>
+</body>
+</html>
