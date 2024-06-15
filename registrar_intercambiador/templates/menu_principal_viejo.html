@@ -213,7 +213,7 @@
 
     .button:hover {
         background-color: white;
-        transform: scale (1,1);
+        transform: scale(1.1);
         color: #61b0b2;
     }
 
@@ -252,6 +252,10 @@
             <img src="../static/logo.png" alt="foto_principal">
         </div>
         <div class="nav-links">
+            <form action="/inicio/" method="GET">
+                {% csrf_token %}
+                <button type="submit">Inicio</button>
+            </form>
             <form action="/mi_perfil/" method="GET">
                 {% csrf_token %}
                 <button type="submit">Mi Perfil</button>
@@ -312,6 +316,14 @@
                     <button class="category-button">Publicar</button>
                 </div>
             </form>
+            <br>
+            <br>
+            <div class="filtros-container">
+                <h3>Donar</h3>
+                <button class="category-button">Donar en efectivo</button>
+                <button class="category-button">Donar con MercadoPago</button>
+                <button class="category-button">Donar con tarjeta</button>
+            </div>
         </div>
         
 
